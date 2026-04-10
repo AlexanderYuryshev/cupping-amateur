@@ -1,37 +1,35 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { SessionHistory } from "@/components/session-history";
-import { getAllSessions } from "@/lib/storage";
-import { exportToText } from "@/lib/export";
-import type { CuppingSession } from "@/lib/types";
-import { ChevronLeft, Download } from "lucide-react";
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import { Button } from "@/components/ui/button"
+import { SessionHistory } from "@/components/session-history"
+import { getAllSessions } from "@/lib/storage"
+import { exportToText } from "@/lib/export"
+import type { CuppingSession } from "@/lib/types"
+import { ChevronLeft, Download } from "lucide-react"
 
 export default function HistoryPage() {
-  const [sessions, setSessions] = useState<CuppingSession[]>([]);
+  const [sessions, setSessions] = useState<CuppingSession[]>([])
 
   useEffect(() => {
     const loadedSessions = getAllSessions().sort(
       (a, b) => b.timestamp - a.timestamp,
-    );
-    setSessions(loadedSessions);
-  }, []);
+    )
+    setSessions(loadedSessions)
+  }, [])
 
   const handleDelete = (id: string) => {
-    setSessions((prev) => prev.filter((s) => s.id !== id));
-  };
+    setSessions((prev) => prev.filter((s) => s.id !== id))
+  }
 
   const handleExportText = () => {
-    exportToText(sessions);
-  };
+    exportToText(sessions)
+  }
 
   return (
     <main className="min-h-svh bg-background">
       <header className="sticky top-0 z-10 flex items-center justify-between border-b bg-background px-4 py-3">
         <Button variant="ghost" size="sm" asChild>
-          <Link href="/">
+          <Link to="/">
             <ChevronLeft className="size-4" />
             <span>Назад</span>
           </Link>
@@ -54,5 +52,5 @@ export default function HistoryPage() {
         <SessionHistory sessions={sessions} onDelete={handleDelete} />
       </div>
     </main>
-  );
+  )
 }

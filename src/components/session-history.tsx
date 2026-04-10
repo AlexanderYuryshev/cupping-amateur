@@ -1,7 +1,5 @@
-"use client"
-
 import { useState } from "react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import {
   AlertDialog,
@@ -62,7 +60,7 @@ export function SessionHistory({ sessions, onDelete }: SessionHistoryProps) {
       <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
         <p className="text-muted-foreground">Пока нет записанных сессий</p>
         <Button asChild>
-          <Link href="/">Начать сессию</Link>
+          <Link to="/">Начать сессию</Link>
         </Button>
       </div>
     )
@@ -75,7 +73,7 @@ export function SessionHistory({ sessions, onDelete }: SessionHistoryProps) {
           key={session.id}
           className="flex items-center justify-between rounded-lg border p-4"
         >
-          <Link href={`/session?id=${session.id}`} className="flex-1">
+          <Link to={`/session?id=${session.id}`} className="flex-1">
             <div className="flex flex-col gap-1">
               <span className="font-medium">
                 {session.sampleCount} {getSampleWord(session.sampleCount)}

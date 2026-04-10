@@ -1,7 +1,5 @@
-"use client";
-
-import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { createEmptySession } from "@/lib/types";
@@ -12,17 +10,16 @@ interface SessionSetupProps {
 }
 
 export function SessionSetup({ onCancel }: SessionSetupProps) {
-  const router = useRouter();
+  const navigate = useNavigate();
   const [sampleCount, setSampleCount] = useState(4);
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
 
   const handleStart = () => {
     if (sampleCount < 1 || sampleCount > 20) return;
     const session = createEmptySession(sampleCount);
     saveSession(session);
-    startTransition(() => {
-      router.push(`/session?id=${session.id}`);
-    });
+    setIsPending(true);
+    navigate(`/session?id=${session.id}`);
   };
 
   return (

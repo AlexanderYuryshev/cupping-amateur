@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useCallback, useRef } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { FieldView } from "@/components/field-view"

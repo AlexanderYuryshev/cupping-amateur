@@ -1,7 +1,5 @@
-"use client"
-
 import { useState, useEffect } from "react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { SessionSetup } from "@/components/session-setup"
@@ -36,7 +34,7 @@ export default function HomePage() {
               </Button>
               {sessionCount > 0 && (
                 <Button variant="outline" size="lg" className="w-full" asChild>
-                  <Link href="/history">История</Link>
+                  <Link to="/history">История</Link>
                 </Button>
               )}
             </div>
