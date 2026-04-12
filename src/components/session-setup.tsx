@@ -11,12 +11,13 @@ interface SessionSetupProps {
 
 export function SessionSetup({ onCancel }: SessionSetupProps) {
   const navigate = useNavigate();
+  const [sessionName, setSessionName] = useState("");
   const [sampleCount, setSampleCount] = useState(4);
   const [isPending, setIsPending] = useState(false);
 
   const handleStart = () => {
     if (sampleCount < 1 || sampleCount > 20) return;
-    const session = createEmptySession(sampleCount);
+    const session = createEmptySession(sampleCount, sessionName.trim() || undefined);
     saveSession(session);
     setIsPending(true);
     navigate(`/session?id=${session.id}`);
@@ -24,6 +25,23 @@ export function SessionSetup({ onCancel }: SessionSetupProps) {
 
   return (
     <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        <label
+          htmlFor="sessionName"
+          className="text-sm font-medium text-foreground"
+        >
+          Название сессии
+        </label>
+        <Input
+          id="sessionName"
+          type="text"
+          value={sessionName}
+          onChange={(e) => setSessionName(e.target.value)}
+          placeholder={`Сессия ${new Date().toLocaleDateString("ru-RU", { month: "short", day: "numeric" })}`}
+          className="w-full"
+        />
+      </div>
+
       <div className="flex flex-col gap-2">
         <label
           htmlFor="sampleCount"

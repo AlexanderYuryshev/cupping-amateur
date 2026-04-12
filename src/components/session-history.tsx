@@ -76,7 +76,7 @@ export function SessionHistory({ sessions, onDelete }: SessionHistoryProps) {
           <Link to={`/session?id=${session.id}`} className="flex-1">
             <div className="flex flex-col gap-1">
               <span className="font-medium">
-                {session.sampleCount} {getSampleWord(session.sampleCount)}
+                {session.name || `${session.sampleCount} ${getSampleWord(session.sampleCount)}`}
               </span>
               <span className="text-sm text-muted-foreground">
                 {formatDate(session.timestamp)} в {formatTime(session.timestamp)}

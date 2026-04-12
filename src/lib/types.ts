@@ -30,6 +30,7 @@ export interface CuppingSession {
   timestamp: number
   sampleCount: number
   samples: CuppingSample[]
+  name?: string
 }
 
 export const FIELD_ORDER = [
@@ -72,11 +73,12 @@ export function createEmptySample(index: number): CuppingSample {
   }
 }
 
-export function createEmptySession(sampleCount: number): CuppingSession {
+export function createEmptySession(sampleCount: number, name?: string): CuppingSession {
   return {
     id: crypto.randomUUID(),
     timestamp: Date.now(),
     sampleCount,
     samples: Array.from({ length: sampleCount }, (_, i) => createEmptySample(i)),
+    name: name || `Сессия ${new Date().toLocaleDateString("ru-RU", { month: "short", day: "numeric" })}`,
   }
 }
